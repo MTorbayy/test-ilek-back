@@ -19,8 +19,15 @@ export class EnvironmentQuestionsService {
           answer.selected = false
         })
 
-        if(!mixedArray.includes(randomElement)) {
-          mixedArray.push(randomElement)
+        let answersWithoutIsCorrect = randomElement.answers.map(answer => {
+          const {isCorrect, ...selectedAnswer} = answer;
+          return selectedAnswer
+        })
+
+        let randomElementWithoutIsCorrect = {...randomElement, answers: answersWithoutIsCorrect}
+
+        if(!mixedArray.includes(randomElementWithoutIsCorrect)) {
+          mixedArray.push(randomElementWithoutIsCorrect)
         }
 
         newArray.splice(randomIndex, 1);
@@ -34,7 +41,11 @@ export class EnvironmentQuestionsService {
     return mixedFiveQuestions
   }
 
-  getQuestions(): any {
+  getFiveQuestions(): any {
     return this.#getFiveQuestions();
+  }
+
+  getAllQuestions(): any {
+    return this.questions;
   }
 }
