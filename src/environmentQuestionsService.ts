@@ -1,11 +1,24 @@
 import { Injectable } from '@nestjs/common';
 import * as environmentQuestions from './data/questions_environment.json';
 
+
+interface Question {
+  id: number;
+  question: string;
+  answers: Answer[];
+}
+
+interface Answer {
+  id: number;
+  answer: string;
+  isCorrect: boolean;
+}
+
 @Injectable()
 export class EnvironmentQuestionsService {
   questions = environmentQuestions;
 
-  #getFiveQuestions(): any {
+  #getFiveQuestions(): Question[] {
 
     const mixArray = (array: any[]): any[] => {
       const newArray = [...array];
@@ -41,11 +54,11 @@ export class EnvironmentQuestionsService {
     return mixedFiveQuestions
   }
 
-  getFiveQuestions(): any {
+  getFiveQuestions(): Question[] {
     return this.#getFiveQuestions();
   }
 
-  getAllQuestions(): any {
+  getAllQuestions(): Question[] {
     return this.questions;
   }
 }

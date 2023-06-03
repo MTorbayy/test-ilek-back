@@ -2,6 +2,18 @@ import { Controller, Get, Post, Body } from '@nestjs/common';
 import { EnvironmentQuestionsService } from './environmentQuestionsService';
 import { MitigationQuestionsService } from "./mitigationQuestionsService";
 
+interface Question {
+  id: number;
+  question: string;
+  answers: Answer[];
+}
+
+interface Answer {
+  id: number;
+  answer: string;
+  isCorrect: boolean;
+}
+
 @Controller()
 export class AppController {
   constructor(
@@ -10,12 +22,12 @@ export class AppController {
   ) {}
 
   @Get('environment_questions')
-  getEnvironmentQuestions(): any {
+  getEnvironmentQuestions(): Question[] {
     return this.environmentQuestionsService.getFiveQuestions();
   }
 
   @Get('mitigation_questions')
-  getMitigationQuestions(): any {
+  getMitigationQuestions(): Question[] {
     return this.mitigationQuestionsService.getFiveQuestions();
   }
 
