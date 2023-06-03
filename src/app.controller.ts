@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Post, Body } from '@nestjs/common';
 import { EnvironmentQuestionsService } from './environmentQuestionsService';
 import { MitigationQuestionsService } from "./mitigationQuestionsService";
 
@@ -17,5 +17,11 @@ export class AppController {
   @Get('mitigation_questions')
   getMitigationQuestions(): any {
     return this.mitigationQuestionsService.getQuestions();
+  }
+
+  @Post('check_environment_questions')
+  checkQuestions(@Body() answers: any[]): any {
+    const score = 100;
+    return score
   }
 }
